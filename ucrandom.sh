@@ -20,17 +20,18 @@ while true; do
         data=$(nc -w 10 ${HOST} ${PORT})
         printf "got %s bytes\n" ${#data}
         if [ ${#data} -gt 1000 ]; then
-           printf "%s" "${data}" > ${DEVICE}
+           result=$(echo $data | sha512sum | awk '{print $1}')
+           printf "%s" "${result}" > "${DEVICE}"
            sleep_time=$(expr ${sleep_time} - 1)
            if [ ${sleep_time} -lt 1 ]; then
                sleep_time=1
            fi
         fi
-    else
+   else
         sleep_time=$(expr ${sleep_time} + 1)
         if [ ${sleep_time} -gt 600 ]; then
             sleep_time=600
         fi
-    fi
-    sleep ${sleep_time}
+   fi
+   sleep ${sleep_time}
 done

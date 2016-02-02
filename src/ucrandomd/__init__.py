@@ -25,7 +25,6 @@ def usage():
     sys.exit(1)
 
 def main():
-    # Port 0 means to select an arbitrary unused port
     opts = {}
     args = []
     flags = "fhvd:p:H:S:"
